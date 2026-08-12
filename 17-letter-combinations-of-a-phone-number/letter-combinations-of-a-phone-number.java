@@ -1,6 +1,6 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
-        String[]keypad={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        String[]keypad={"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
         List<String>ans=new ArrayList<>();
         if(digits==null || digits.length()==0)return ans;
         helper("",0,digits,ans,keypad);
@@ -11,7 +11,7 @@ class Solution {
             ans.add(s);
             return;
         }
-        String curr=keypad[digits.charAt(idx)-'0'];
+        String curr=keypad[digits.charAt(idx)-'2'];
         for(int i=0;i<curr.length();i++){
             helper(s+curr.charAt(i),idx+1,digits,ans,keypad);
         }
