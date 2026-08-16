@@ -1,22 +1,16 @@
 class Solution {
     public int countPrimes(int n) {
-        boolean[]primes=new boolean[n];
-        for(int i=2;i<n;i++){
-            primes[i]=true;
-        }
-        for(int i=2;(long)i*i<n;i++){
-            if(primes[i]){
-                for(long j=i*i;j<n;j+=i){
-                    if(primes[(int)j]){
-                        primes[(int)j]=false;
+        if(n<=2)return 0;
+        boolean[]composite=new boolean[n/2];
+        int count=n/2;
+        for(int i=3;i*i<n;i+=2){
+            if(!composite[i/2]){
+                for(int j=i*i;j<n;j+=2*i){
+                    if(!composite[j/2]){
+                        composite[j/2]=true;
+                        count--;
                     }
                 }
-            }
-        }
-        int count=0;
-        for(int i=2;i<n;i++){
-            if(primes[i]){
-                count++;
             }
         }
         return count;
