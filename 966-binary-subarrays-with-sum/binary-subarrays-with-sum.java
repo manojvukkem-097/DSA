@@ -1,14 +1,16 @@
 class Solution {
     public int numSubarraysWithSum(int[] nums, int goal) {
-        int count[]=new int[nums.length+1];
-        count[0]=1;
-        int currsum=0,ans=0;
+        return atmost(nums,goal)-atmost(nums,goal-1);
+    }
+    private int atmost(int[]nums,int goal){
+        if(goal<0)return 0;
+        int l=0,ans=0,sum=0;
         for(int r=0;r<nums.length;r++){
-            currsum+=nums[r];
-            if(currsum>=goal){
-                ans+=count[currsum-goal];
+            sum+=nums[r];
+            while(sum>goal){
+                sum-=nums[l++];
             }
-            count[currsum]++;
+            ans+=r-l+1;
         }
         return ans;
     }
