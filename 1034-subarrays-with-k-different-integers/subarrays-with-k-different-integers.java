@@ -3,14 +3,17 @@ class Solution {
         return atmost(nums,k)-atmost(nums,k-1);
     }
     private int atmost(int[]nums,int k){
-        int l=0,r=0,count=0;
-        Map<Integer,Integer>map=new HashMap<>();
+        int l=0,r=0,count=0,distinct=0;
+        int[]freq=new int[nums.length+1];
         while(r<nums.length){
-            map.put(nums[r],map.getOrDefault(nums[r],0)+1);
-            while(map.size()>k){
-                map.put(nums[l],map.get(nums[l])-1);
-                if(map.get(nums[l])==0){
-                    map.remove(nums[l]);
+            if(freq[nums[r]]==0){
+                distinct++;
+            }
+            freq[nums[r]]++;
+            while(distinct>k){
+                freq[nums[l]]--;
+                if(freq[nums[l]]==0){
+                    distinct--;
                 }
                 l++;
             }
