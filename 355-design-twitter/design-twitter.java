@@ -18,7 +18,7 @@ class User{
         this.userId=userId;
         followees=new HashSet<>();
         followees.add(userId);
-        tweets=new LinkedList<>();
+        tweets=new ArrayList<>();
     }
     public void post(Tweet t){
         tweets.add(0,t);
