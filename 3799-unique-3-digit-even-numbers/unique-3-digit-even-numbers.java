@@ -6,20 +6,18 @@ class Solution {
             freq[digit]++;
         }
         for(int i=100;i<1000;i+=2){
-            int[]digit=new int[10];
-            digit[i%10]++;
-            digit[(i/10)%10]++;
-            digit[(i/100)%10]++;
-            boolean yes=true;
-            for(int j=0;j<10;j++){
-                if(digit[j]>freq[j]){
-                    yes=false;
-                    break;
-                }
-            }
-            if(yes){
+            int d1=i/100;
+            int d2=(i/10)%10;
+            int d3=i%10;
+            freq[d1]--;
+            freq[d2]--;
+            freq[d3]--;
+            if(freq[d1]>=0&&freq[d2]>=0&&freq[d3]>=0){
                 ans++;
             }
+            freq[d1]++;
+            freq[d2]++;
+            freq[d3]++;
         }
         return ans;
     }
