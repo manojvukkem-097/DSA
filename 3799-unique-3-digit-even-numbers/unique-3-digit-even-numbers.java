@@ -9,15 +9,24 @@ class Solution {
             int d1=i/100;
             int d2=(i/10)%10;
             int d3=i%10;
-            freq[d1]--;
-            freq[d2]--;
-            freq[d3]--;
-            if(freq[d1]>=0&&freq[d2]>=0&&freq[d3]>=0){
-                ans++;
+            if(d1!=d2 && d2!=d3 && d1!=d3){
+                if(freq[d1]>0&&freq[d2]>0&&freq[d3]>0){
+                    ans++;
+                }
             }
-            freq[d1]++;
-            freq[d2]++;
-            freq[d3]++;
+            if(d1==d2 && d2==d3){
+                if(freq[d1]>=3){
+                    ans++;
+                }
+            }else{
+                if(d1==d2){
+                    if(freq[d1]>=2&&freq[d3]>0)ans++;
+                }else if(d2==d3){
+                    if(freq[d2]>=2&&freq[d1]>0)ans++;
+                }else if(d1==d3){
+                    if(freq[d3]>=2&&freq[d2]>0)ans++;
+                }
+            }
         }
         return ans;
     }
