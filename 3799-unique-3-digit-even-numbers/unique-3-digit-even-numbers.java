@@ -5,28 +5,18 @@ class Solution {
         for(int digit:digits){
             freq[digit]++;
         }
-        for(int i=100;i<1000;i+=2){
-            int d1=i/100;
-            int d2=(i/10)%10;
-            int d3=i%10;
-            if(d1!=d2 && d2!=d3 && d1!=d3){
-                if(freq[d1]>0&&freq[d2]>0&&freq[d3]>0){
-                    ans++;
+        for(int d1=1;d1<10;d1++){
+            if(freq[d1]==0)continue;
+            freq[d1]--;
+            for(int d2=0;d2<10;d2++){
+                if(freq[d2]==0)continue;
+                freq[d2]--;
+                for(int d3=0;d3<10;d3+=2){
+                    if(freq[d3]>0)ans++;
                 }
+                freq[d2]++;
             }
-            if(d1==d2 && d2==d3){
-                if(freq[d1]>=3){
-                    ans++;
-                }
-            }else{
-                if(d1==d2){
-                    if(freq[d1]>=2&&freq[d3]>0)ans++;
-                }else if(d2==d3){
-                    if(freq[d2]>=2&&freq[d1]>0)ans++;
-                }else if(d1==d3){
-                    if(freq[d3]>=2&&freq[d2]>0)ans++;
-                }
-            }
+            freq[d1]++;
         }
         return ans;
     }
