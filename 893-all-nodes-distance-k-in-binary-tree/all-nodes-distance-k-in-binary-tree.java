@@ -25,10 +25,10 @@ class Solution {
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         Map<TreeNode,TreeNode>parentmap=new HashMap<>();
         markparent(root,parentmap);
-        Map<TreeNode,Boolean>visited=new HashMap<>();
+        Set<TreeNode>visited=new HashSet<>();
         Queue<TreeNode>q=new LinkedList<>();
         q.add(target);
-        visited.put(target,true);
+        visited.add(target);
         int count=0;
         while(!q.isEmpty()){
             int size=q.size();
@@ -36,16 +36,16 @@ class Solution {
             count++;
             for(int i=0;i<size;i++){
                 TreeNode node=q.poll();
-                if(node.left!=null&&visited.get(node.left)==null){
+                if(node.left!=null&&!visited.contains(node.left)){
                     q.add(node.left);
-                    visited.put(node.left,true);
-                }if(node.right!=null&&visited.get(node.right)==null){
+                    visited.add(node.left);
+                }if(node.right!=null&&!visited.contains(node.right)){
                     q.add(node.right);
-                    visited.put(node.right,true);
+                    visited.add(node.right);
                 }
-                if(parentmap.get(node)!=null&&visited.get(parentmap.get(node))==null){
+                if(parentmap.get(node)!=null&&!visited.contains(parentmap.get(node))){
                     q.add(parentmap.get(node));
-                    visited.put(parentmap.get(node),true);
+                    visited.add(parentmap.get(node));
                 }
             }
         }
