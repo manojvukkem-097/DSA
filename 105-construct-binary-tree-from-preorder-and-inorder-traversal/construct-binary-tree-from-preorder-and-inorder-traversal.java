@@ -14,20 +14,20 @@
  * }
  */
 class Solution {
+    private int i=0;
+    private int p=0;
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        Map<Integer,Integer>inmap=new HashMap<>();
-        for(int i=0;i<inorder.length;i++){
-            inmap.put(inorder[i],i);
-        }
-        return build(preorder,0,preorder.length-1,inorder,0,inorder.length-1,inmap);
+        return build(preorder,inorder,Integer.MAX_VALUE); 
     }
-    private TreeNode build(int[]preorder,int prestart,int preend,int[]inorder,int instart,int inend,Map<Integer,Integer>inmap){
-        if(prestart>preend||instart>inend)return null;
-        TreeNode root=new TreeNode(preorder[prestart]);
-        int inroot=inmap.get(root.val);
-        int numsleft=inroot-instart;
-        root.left=build(preorder,prestart+1,prestart+numsleft,inorder,instart,inroot-1,inmap);
-        root.right=build(preorder,prestart+numsleft+1,preend,inorder,inroot+1,inend,inmap);
+    private TreeNode build(int[]preorder,int[]inorder,int stop){
+        if(p>=preorder.length)return null;
+        if(inorder[i]==stop){
+            i++;
+            return null;
+        }
+        TreeNode root=new TreeNode(preorder[p++]);
+        root.left=build(preorder,inorder,root.val);
+        root.right=build(preorder,inorder,stop);
         return root;
     }
 }
