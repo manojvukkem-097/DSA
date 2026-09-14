@@ -15,11 +15,11 @@
  */
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
-        List<Integer>inorder=new ArrayList<>();
         TreeNode curr=root;
         while(curr!=null){
             if(curr.left==null){
-                inorder.add(curr.val);
+                k--;
+                if(k==0)return curr.val;
                 curr=curr.right;
             }else{
                 TreeNode temp=curr.left;
@@ -31,11 +31,12 @@ class Solution {
                     curr=curr.left;
                 }else{
                     temp.right=null;
-                    inorder.add(curr.val);
+                    k--;
+                    if(k==0)return curr.val;
                     curr=curr.right;
                 }
             }
         }
-        return inorder.get(k-1);
+        return -1;
     }
 }
