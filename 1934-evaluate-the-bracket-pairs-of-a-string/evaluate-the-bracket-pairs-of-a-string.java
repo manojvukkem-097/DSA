@@ -5,7 +5,7 @@ class Solution {
             map.put(pair.get(0),pair.get(1));
         }
         StringBuilder ans=new StringBuilder();
-        int prev=-1,last=-1,i=0,n=s.length();
+        int prev=-1,i=0,n=s.length();
         while(i<n){
             char ch=s.charAt(i);
             if(ch=='('){
