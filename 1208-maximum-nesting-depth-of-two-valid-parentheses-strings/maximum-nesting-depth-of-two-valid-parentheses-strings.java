@@ -14,9 +14,9 @@ class Solution {
         return s.isEmpty();
     }
     public int[] maxDepthAfterSplit(String seq) {
-        if(!isvalid(seq)){
-            return new int[]{};
-        }
+        //if(!isvalid(seq)){
+          //  return new int[]{};
+        //}
         int[]ans=new int[seq.length()];
         int p=0;
         for(int i=0;i<seq.length();i++){
