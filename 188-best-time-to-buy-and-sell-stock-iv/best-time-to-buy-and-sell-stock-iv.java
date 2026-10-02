@@ -11,28 +11,18 @@ class Solution {
             }
             return profit;
         }
-        int[][]next=new int[2][k+1];
-        int[][]curr=new int[2][k+1];
-        for(int day=n-1;day>=0;day--){
-            for(int buy=0;buy<=1;buy++){
-                for(int count=k;count>0;count--){
-                    if(buy==1){
-                        int take=-prices[day]+next[0][count];
-                        int nottake=next[1][count];
-                        curr[buy][count]=Math.max(take,nottake);
-                    }else{
-                        int sell=prices[day]+next[1][count-1];
-                        int hold=next[0][count];
-                        curr[buy][count]=Math.max(sell,hold);
-                    }
-                }
-            }
-            for(int i=0;i<2;i++){
-                for(int j=0;j<k+1;j++){
-                    next[i][j]=curr[i][j];
-                }
+        int[]buy=new int[k+1];
+        int[]sell=new int[k+1];
+        for(int j=1;j<=k;j++){
+            buy[j]=-prices[0];
+            sell[j]=0;
+        }
+        for(int i=1;i<n;i++){
+            for(int j=1;j<=k;j++){
+                buy[j]=Math.max(buy[j],sell[j-1]-prices[i]);
+                sell[j]=Math.max(sell[j],buy[j]+prices[i]);
             }
         }
-        return next[1][k];
+        return sell[k];
     }
 }
