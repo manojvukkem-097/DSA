@@ -1,19 +1,23 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        int[][]dp=new int[prices.length+2][2];
+        int[]next2=new int[2];
+        int[]next1=new int[2];
+        int[]curr=new int[2];
         for(int day=prices.length-1;day>=0;day--){
             for(int buy=0;buy<=1;buy++){
                 if(buy==1){
-                    int take=-prices[day]+dp[day+1][0];
-                    int nottake=dp[day+1][1];
-                    dp[day][buy]=Math.max(take,nottake);
+                    int take=-prices[day]+next1[0];
+                    int nottake=next1[1];
+                    curr[buy]=Math.max(take,nottake);
                 }else{
-                    int sell=prices[day]+dp[day+2][1];
-                    int hold=dp[day+1][0];
-                    dp[day][buy]=Math.max(sell,hold);
+                    int sell=prices[day]+next2[1];
+                    int hold=next1[0];
+                    curr[buy]=Math.max(sell,hold);
                 }
             }
+            next2=next1.clone();
+            next1=curr.clone();
         }
-        return dp[0][1];
+        return curr[1];
     }
 }
