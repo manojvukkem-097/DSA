@@ -5,18 +5,20 @@ class Solution {
             sum+=num;
         }
         if(sum%2!=0)return false;
-        Boolean[][]dp=new Boolean[nums.length][sum/2+1];
-        return helper(nums,0,sum/2,dp);
-    }
-    private boolean helper(int[]nums,int index,int target,Boolean[][]dp){
-        if(target==0)return true;
-        if(target<0)return false;
-        if(index==nums.length){
-            return false;
+        int target=sum/2;
+        boolean[]next=new boolean[target+1];
+        next[0]=true;
+        for(int i=nums.length-1;i>=0;i--){
+            boolean[]curr=new boolean[target+1];
+            curr[0]=true;
+            for(int j=target;j>=0;j--){
+                boolean take=false;
+                if(j-nums[i]>=0)take=next[j-nums[i]];
+                boolean nottake=next[j];
+                curr[j]=take||nottake;
+            }
+            next=curr;
         }
-        if(dp[index][target]!=null)return dp[index][target];
-        boolean take=helper(nums,index+1,target-nums[index],dp);
-        boolean nottake=helper(nums,index+1,target,dp);
-        return dp[index][target]=take||nottake;
+        return next[target];
     }
 }
