@@ -9,15 +9,10 @@ class Solution {
         boolean[]next=new boolean[target+1];
         next[0]=true;
         for(int i=nums.length-1;i>=0;i--){
-            boolean[]curr=new boolean[target+1];
-            curr[0]=true;
-            for(int j=target;j>=0;j--){
-                boolean take=false;
-                if(j-nums[i]>=0)take=next[j-nums[i]];
-                boolean nottake=next[j];
-                curr[j]=take||nottake;
+            for(int j=target;j>=nums[i];j--){
+                next[j]=next[j-nums[i]]||next[j];
             }
-            next=curr;
+            if(next[target])return true;
         }
         return next[target];
     }
