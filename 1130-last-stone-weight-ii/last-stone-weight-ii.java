@@ -7,9 +7,9 @@ class Solution {
         int target=sum/2;
         boolean[]dp=new boolean[target+1];
         dp[0]=true;
-        for(int index=0;index<stones.length;index++){
-            for(int j=target;j>=stones[index];j--){
-                dp[j]=dp[j]||dp[j-stones[index]];
+        for(int stone:stones){
+            for(int j=target;j>=stone;j--){
+                dp[j]=dp[j]||dp[j-stone];
             }
         }
         for(int j=target;j>=0;j--){
