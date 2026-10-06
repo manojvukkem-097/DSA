@@ -2,8 +2,7 @@ class Solution {
     public int minAddToMakeValid(String s) {
         int ans=0,open=0;
         for(int i=0;i<s.length();i++){
-            char ch=s.charAt(i);
-            if(ch=='('){
+            if(s.charAt(i)=='('){
                 if(open<0){
                     ans+=Math.abs(open);
                     open=0;
