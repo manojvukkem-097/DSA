@@ -1,19 +1,21 @@
 class Solution {
     public int coinChange(int[] coins, int amount) {
-        int[][]dp=new int[coins.length][amount+1];
-        for(int[]row:dp){
-            Arrays.fill(row,-1);
+        int[][]dp=new int[coins.length+1][amount+1];
+        for(int i=0;i<coins.length+1;i++){
+            Arrays.fill(dp[i],(int)1e9);
         }
-        int ans=helper(coins,0,amount,dp);
-        return ans==(int)1e9?-1:ans;
-    }
-    private int helper(int[]coins,int index,int amount,int[][]dp){
-        if(amount==0)return 0;
-        if(index==coins.length||amount<0)return (int)1e9;
-        if(dp[index][amount]!=-1)return dp[index][amount];
-        int take=(int)1e9;
-        if(amount-coins[index]>=0)take=1+helper(coins,index,amount-coins[index],dp);
-        int nottake=helper(coins,index+1,amount,dp);
-        return dp[index][amount]=Math.min(take,nottake);
+        for(int i=0;i<coins.length+1;i++){
+            dp[i][0]=0;
+        }
+        for(int index=coins.length-1;index>=0;index--){
+            for(int j=1;j<=amount;j++){
+                int take=(int)1e9;
+                if(j-coins[index]>=0)take=1+dp[index][j-coins[index]];
+                int nottake=dp[index+1][j];
+                dp[index][j]=Math.min(take,nottake);
+            }
+        }
+        int ans=dp[0][amount];
+        return ans>=(int)1e9?-1:ans;
     }
 }
