@@ -5,11 +5,12 @@ class Solution {
             sum+=nums[i];
         }
         if(Math.abs(target)>sum||(target+sum)%2!=0)return 0;
-        int[]dp=new int[(target+sum)/2+1];
+        int s1=(target + sum) / 2;
+        int[]dp=new int[s1+1];
         dp[0]=1;
-        for(int index=nums.length-1;index>=0;index--){
-            for(int j=(target+sum)/2;j>=nums[index];j--){
-                dp[j]=dp[j-nums[index]]+dp[j];
+        for(int num:nums){
+            for(int j=s1;j>=num;j--){
+                dp[j]=dp[j-num]+dp[j];
             }
         }
         return dp[(target+sum)/2];
