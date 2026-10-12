@@ -1,7 +1,7 @@
 class Solution {
     public int longestStrChain(String[] words) {
         Arrays.sort(words,(a,b)->Integer.compare(a.length(),b.length()));
-        Map<String,Integer>dp=new HashMap<>();
+        Map<String,Integer>dp=new HashMap<>(words.length*2);
         int ans=1;
         for(String word:words){
             int curr=1;
