@@ -16,6 +16,8 @@ class Solution {
                 if(bitcount[j]>0){
                     currnum|=(1L<<j);
                     bitcount[j]--;
+                }else{
+                    continue;
                 }
             }
             ans=(ans+(currnum*currnum)%mod)%mod;
