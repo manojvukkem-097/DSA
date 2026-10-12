@@ -2,20 +2,20 @@ class Solution {
     public List<Integer> largestDivisibleSubset(int[] nums) {
         Arrays.sort(nums);
         int[]dp=new int[nums.length];
-        Arrays.fill(dp,1);
         int[]hash=new int[nums.length];
-        int maxi=0,len=0;
+        Arrays.fill(dp,1);
+        int len=1,maxi=0;
         for(int i=0;i<nums.length;i++){
             hash[i]=i;
             for(int j=0;j<i;j++){
                 if(nums[i]%nums[j]==0){
                     if(dp[i]<dp[j]+1){
-                        dp[i]=1+dp[j];
+                        dp[i]=dp[j]+1;
                         hash[i]=j;
                     }
                 }
             }
-            if(dp[i]>len){
+            if(len<dp[i]){
                 len=dp[i];
                 maxi=i;
             }
