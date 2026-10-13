@@ -1,5 +1,10 @@
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
+        if (text1.length() < text2.length()) {
+            String temp=text1;
+            text1=text2;
+            text2=temp;
+        }
         int[]prev=new int[text2.length()+1];
         for(int index1=1;index1<=text1.length();index1++){
             int[]curr=new int[text2.length()+1];
