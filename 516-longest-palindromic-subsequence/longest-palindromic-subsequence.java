@@ -5,11 +5,6 @@ class Solution {
         return lcs(s1,s2);
     }
     private int lcs(String s1,String s2){
-        if(s2.length()>s1.length()){
-            String temp=s1;
-            s1=s2;
-            s2=temp;
-        }
         int m=s1.length(),n=s2.length();
         int[]prev=new int[n+1];
         for(int i=1;i<=m;i++){
