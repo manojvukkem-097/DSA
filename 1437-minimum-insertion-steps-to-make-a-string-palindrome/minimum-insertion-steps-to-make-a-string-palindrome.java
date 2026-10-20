@@ -4,18 +4,17 @@ class Solution {
         return s.length()-lcs(s,str);
     }
     private int lcs(String src,String target){
-        int[][]dp=new int[src.length()][src.length()];
-        for(int[]row:dp){
-            Arrays.fill(row,-1);
+        int n=src.length();
+        int[][]dp=new int[n+1][n+1];
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
+                if(src.charAt(i-1)==target.charAt(j-1)){
+                    dp[i][j]=1+dp[i-1][j-1];
+                }else{
+                    dp[i][j]=Math.max(dp[i][j-1],dp[i-1][j]);
+                }
+            }
         }
-        return helper(src,target,src.length()-1,target.length()-1,dp);
-    }
-    private int helper(String src,String target,int i,int j,int[][]dp){
-        if(i<0||j<0)return 0;
-        if(dp[i][j]!=-1)return dp[i][j];
-        if(src.charAt(i)==target.charAt(j)){
-            return dp[i][j]=1+helper(src,target,i-1,j-1,dp);
-        }
-        return dp[i][j]=Math.max(helper(src,target,i,j-1,dp),helper(src,target,i-1,j,dp));
+        return dp[n][n];
     }
 }
