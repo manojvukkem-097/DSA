@@ -14,6 +14,6 @@ class Solution {
             }
             prev=curr;
         }
-        return m+n-prev[n]-prev[n];
+        return m-prev[n]+n-prev[n];
     }
 }
