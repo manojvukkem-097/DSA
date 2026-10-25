@@ -1,21 +1,18 @@
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
-        int m=s.length(),n=wordDict.size();
+        int m=s.length();
         Set<String>set=new HashSet<>(wordDict);
-        Boolean[]dp=new Boolean[m];
-        return helper(s,0,set,dp);
-    }
-    private boolean helper(String s,int start,Set<String>set,Boolean[]dp){
-        if(start==s.length()){
-            return true;
-        }
-        if(dp[start]!=null)return dp[start];
-        for(int end=start+1;end<=s.length();end++){
-            String prefix=s.substring(start,end);
-            if(set.contains(prefix)&&helper(s,end,set,dp)){
-                return dp[start]=true;
+        boolean[]dp=new boolean[m+1];
+        dp[m]=true;
+        for(int start=m-1;start>=0;start--){
+            for(int end=start+1;end<=m;end++){
+                String prefix=s.substring(start,end);
+                if(set.contains(prefix)&&dp[end]){
+                    dp[start]=true;
+                    break;
+                }
             }
         }
-        return dp[start]=false;
+        return dp[0];
     }
 }
