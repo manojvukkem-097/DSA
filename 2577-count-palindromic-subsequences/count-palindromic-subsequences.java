@@ -1,49 +1,47 @@
 class Solution {
     int MOD=1000000007;
+    private int rev(int x){
+        if(x<0){
+            return x*10;
+        }
+        return (x%10)*10+x/10;
+    }
     public int countPalindromes(String s) {
         int n=s.length();
-        //int[][][][]dp=new int[n+1][6][11][11];
-        int[][][]next=new int[6][11][11];
-        int[][][]curr=new int[6][11][11];
-        for(int d1=0;d1<11;d1++){
-            for(int d2=0;d2<11;d2++){
-                next[5][d1][d2]=1;
-            }
-        }
-        for(int index=n-1;index>=0;index--){
-            int current=s.charAt(index)-'0';
-            for(int matchcount=5;matchcount>=0;matchcount--){
-                for(int d1=9;d1>=0;d1--){
-                    for(int d2=9;d2>=0;d2--){
-                        int totalcount=0;
-                        totalcount+=next[matchcount][d1][d2]%MOD;
-                        if(matchcount==0){
-                            totalcount+=next[1][current][d2]%MOD;
-                        }else if(matchcount==1){
-                            totalcount+=next[2][d1][current]%MOD;
-                        }else if(matchcount==2){
-                            totalcount+=next[3][d1][d2]%MOD;
-                        }else if(matchcount==3){
-                            if(current==d2){
-                                totalcount+=next[4][d1][d2]%MOD;
-                            }
-                        }else if(matchcount==4){
-                            if(current==d1){
-                                totalcount+=next[5][d1][d2]%MOD;
-                            }
-                        }
-                        curr[matchcount][d1][d2]=totalcount%MOD;
-                    }
+        int[]fc=new int[10];
+        int[]bc=new int[10];
+        int[]fs=new int[100];
+        int[]bs=new int[100];
+        for(int i=n-1;i>=0;i--){
+            int x=s.charAt(i)-'0';
+            for(int j=0;j<10;j++){
+                if(bc[j]>0){
+                    bs[x*10+j]=(int)((bs[x*10+j]+(long)bc[j])%MOD);
                 }
             }
-            for(int j=0;j<6;j++){
-                for(int k=0;k<11;k++){
-                    for(int l=0;l<11;l++){
-                        next[j][k][l]=curr[j][k][l];
-                    }
+            bc[x]++;
+        }
+        long ans=0;
+        for(int i=0;i<n;i++){
+            int x=s.charAt(i)-'0';
+            bc[x]--;
+            for(int j=0;j<10;j++){
+                if(bc[j]>0){
+                    bs[x*10+j]=(int)(bs[x*10+j]-(long)bc[j]+MOD)%MOD;
                 }
             }
+            for(int j=0;j<100;j++){
+                if(fs[j]>0&&bs[rev(j)]>0){
+                    ans=(ans+(long)fs[j]*bs[rev(j)])%MOD;
+                }
+            }
+            for(int j=0;j<10;j++){
+                if(fc[j]>0){
+                    fs[j*10+x]=(int)((fs[j*10+x]+(long)fc[j])%MOD);
+                }
+            }
+            fc[x]++;
         }
-        return next[0][0][0];
+        return (int)ans;
     }
 }
