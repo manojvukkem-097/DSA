@@ -1,6 +1,6 @@
 class Solution {
     public int climbStairs(int n, int[] costs) {
-        int dp0=0,dp1=0,dp2=0,current=0;
+        int dp0=0,dp1=0,dp2=0;
         for(int i=1;i<=n;i++){
             int ans=Integer.MAX_VALUE;
             for(int j=1;j<=3;j++){
