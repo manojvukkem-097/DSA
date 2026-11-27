@@ -10,20 +10,22 @@ class Solution {
                 }
             }
         }
-        int[][][]dp=new int[n+1][budget+1][2];
+        int[][]next=new int[budget+1][2];
         for(int i=n-1;i>=0;i--){
+            int[][]curr=new int[budget+1][2];
             for(int j=0;j<=budget;j++){
                 for(int isfirst=1;isfirst>=0;isfirst--){
-                    int best=dp[i+1][j][1];
+                    int best=next[j][1];
                     if(j>=items[i][1]){
                         int gain=isfirst==1?1+map[i]:1;
-                        int buyone=gain+dp[i][j-items[i][1]][0];
+                        int buyone=gain+curr[j-items[i][1]][0];
                         best=Math.max(best,buyone);
                     }
-                    dp[i][j][isfirst]=best;
+                    curr[j][isfirst]=best;
                 }
             }
+            next=curr;
         }
-        return dp[0][budget][1];
+        return next[budget][1];
     }
 }
